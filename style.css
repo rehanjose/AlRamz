@@ -1409,6 +1409,28 @@ h6 {
   cursor: pointer;
 }
 
+.phone-input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.country-code-wrap {
+  width: 145px;
+  flex-shrink: 0;
+}
+
+.country-code-select {
+  padding-right: 2.2rem;
+  font-size: 0.95rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.phone-field {
+  flex-grow: 1;
+}
+
 .btn-submit-form {
   width: 100%;
   border: none;

@@ -535,6 +535,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const firstName = document.getElementById('first-name').value.trim();
       const lastName = document.getElementById('last-name').value.trim();
       const email = document.getElementById('email-address').value.trim();
+      const countryCode = document.getElementById('country-code') ? document.getElementById('country-code').value : '';
+      const phoneNumber = document.getElementById('phone-number') ? document.getElementById('phone-number').value.trim() : '';
       const serviceRequired = document.getElementById('service-required').value;
       const projectDetails = document.getElementById('project-details').value.trim();
 
