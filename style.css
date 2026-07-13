@@ -906,19 +906,7 @@ h6 {
   opacity: 0.95;
 }
 
-/* Background mappings linking existing classes */
-.project-slide.project-cartier-card::after {
-  background-image: url('assets/project img/project-cartier.jpg');
-}
-.project-slide.project-villas-card::after {
-  background-image: url('assets/project img/project-villas.jpg');
-}
-.project-slide.project-prada-card::after {
-  background-image: url('assets/project img/project-prada.jpg');
-}
-.project-slide.project-jones-card::after {
-  background-image: url('assets/project img/project-jones.jpg');
-}
+
 
 .project-slide-content {
   position: relative;
