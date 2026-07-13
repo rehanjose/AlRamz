@@ -658,7 +658,7 @@ h6 {
 .hero-banner-card .hero-banner-content {
   position: relative;
   z-index: 2;
-  transform: none;
+  transform: translateY(-40px);
 }
 
 /* Custom Split Pill Button (Hero) */
