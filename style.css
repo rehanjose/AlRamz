@@ -2744,3 +2744,71 @@ h6 {
   border-color: rgba(27, 42, 65, 0.3);
   background-color: rgba(27, 42, 65, 0.03);
 }
+
+/* Custom Premium Cursor */
+@media (min-width: 993px) {
+  html, body {
+    cursor: none; /* Hide default cursor on desktop */
+  }
+  
+  a, button, input, textarea, select, .btn, .project-slide, .service-row, .filter-btn, .logo, .menu-toggle {
+    cursor: none !important;
+  }
+
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99999;
+  }
+
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-gold);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 100000;
+    transition: width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
+  }
+
+  .cursor-ring {
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(197, 168, 128, 0.45);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 99999;
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, background-color 0.3s ease;
+  }
+
+  /* Hover states */
+  body.cursor-hovering .cursor-ring {
+    width: 55px;
+    height: 55px;
+    border-color: var(--accent-gold);
+    background-color: rgba(197, 168, 128, 0.08);
+  }
+
+  body.cursor-hovering .cursor-dot {
+    background-color: #ffffff;
+    width: 4px;
+    height: 4px;
+  }
+}
+
+/* 3D Tilt Effect Utilities */
+.tilt-element {
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-style: preserve-3d;
+}
+.tilt-element-inner {
+  transform: translateZ(20px);
+}
