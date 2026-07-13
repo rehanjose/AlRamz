@@ -1656,6 +1656,16 @@ h6 {
   font-weight: 300;
 }
 
+.footer-info-value-phone {
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .footer-info-value-phone {
+    white-space: normal;
+  }
+}
+
 .footer-info-value a {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
