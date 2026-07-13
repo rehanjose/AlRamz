@@ -2454,16 +2454,28 @@ h6 {
 .brand-logo-img {
   height: 90px;
   width: auto;
+  min-width: 80px;
+  max-width: 220px;
   object-fit: contain;
   background: transparent;
   mix-blend-mode: normal;
   filter: grayscale(100%) contrast(95%) opacity(85%);
   transition: var(--transition-fast);
   display: block;
+  flex-shrink: 0;
 }
 
 .brand-logo-img[src*="book.png"] {
   height: 110px;
+}
+
+/* Wide logos — let them breathe at full width */
+.brand-logo-img[src*="university"],
+.brand-logo-img[src*="IIT"],
+.brand-logo-img[src*="dubai tourism"],
+.brand-logo-img[src*="jones"] {
+  height: 70px;
+  max-width: 260px;
 }
 
 .brand-logo-img:hover {
