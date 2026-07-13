@@ -603,4 +603,83 @@ document.addEventListener('DOMContentLoaded', () => {
       statsObserver.observe(statsGrid);
     }
   }
+
+  // 7. SERVICES PAGE POP-UP MODAL
+  const serviceRows = document.querySelectorAll('.service-row');
+  
+  if (serviceRows.length > 0) {
+    // Dynamically build and inject the premium modal if not already present
+    let modal = document.getElementById('service-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'service-modal';
+      modal.className = 'service-modal-overlay';
+      modal.innerHTML = `
+        <div class="service-modal-card">
+          <button class="service-modal-close" id="service-modal-close" aria-label="Close modal">&times;</button>
+          <div class="service-modal-body">
+            <div class="service-modal-icon">✉️</div>
+            <h3 class="service-modal-title" id="service-modal-title">Interested in HVAC Design?</h3>
+            <p class="service-modal-text">Let us know about your project! Our expert engineering teams in both UAE and India are ready to help you out.</p>
+            <div class="service-modal-actions">
+              <a href="contact.html" id="service-modal-link" class="btn-cta-rect modal-btn-contact">Contact Us</a>
+              <button class="btn-secondary-modal" id="service-modal-btn-close">Close</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    const modalTitle = document.getElementById('service-modal-title');
+    const modalLink = document.getElementById('service-modal-link');
+    const closeBtn = document.getElementById('service-modal-close');
+    const cancelBtn = document.getElementById('service-modal-btn-close');
+
+    const openModal = (serviceName, serviceId) => {
+      modalTitle.textContent = `Interested in ${serviceName}?`;
+      modalLink.href = `contact.html?service=${serviceId}`;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    serviceRows.forEach(row => {
+      row.addEventListener('click', () => {
+        const titleEl = row.querySelector('.service-row-content h3');
+        const serviceName = titleEl ? titleEl.textContent : 'this service';
+        const serviceId = row.id || '';
+        openModal(serviceName, serviceId);
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  }
+
+  // 8. AUTO-SELECT SERVICE OPTION ON CONTACT PAGE
+  const serviceSelect = document.getElementById('service-required');
+  if (serviceSelect) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceParam = urlParams.get('service');
+    if (serviceParam) {
+      if (serviceParam === 'water-supply' || serviceParam === 'drainage') {
+        serviceSelect.value = 'water';
+      } else if (serviceParam === 'fire-fighting') {
+        serviceSelect.value = 'firefighting';
+      } else {
+        serviceSelect.value = serviceParam;
+      }
+    }
+  }
 });
