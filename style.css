@@ -661,6 +661,66 @@ h6 {
   transform: translateY(-110px);
 }
 
+/* Scroll Down Indicator styling */
+.hero-scroll-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 5rem;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.hero-scroll-indicator:hover {
+  opacity: 1;
+}
+
+.scroll-mouse {
+  width: 20px;
+  height: 32px;
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+  position: relative;
+}
+
+.scroll-wheel {
+  width: 4px;
+  height: 8px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll-bob 1.6s infinite ease-in-out;
+}
+
+.scroll-text {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+@keyframes scroll-bob {
+  0% {
+    top: 6px;
+    opacity: 1;
+  }
+  50% {
+    top: 14px;
+    opacity: 0.3;
+  }
+  100% {
+    top: 6px;
+    opacity: 1;
+  }
+}
+
 /* Custom Split Pill Button (Hero) */
 .split-btn-group {
   display: inline-flex;
