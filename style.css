@@ -2446,8 +2446,8 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: 7rem;
-  padding: 0 5rem;
+  gap: 4rem;
+  padding: 0 3rem;
   min-width: 100%;
 }
 
