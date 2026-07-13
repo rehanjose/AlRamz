@@ -600,6 +600,7 @@ h6 {
 
 .hero-container {
   width: 100%;
+  max-width: 1540px !important;
 }
 
 .hero-banner-card {
