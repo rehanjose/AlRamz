@@ -683,21 +683,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 9. SMOOTH SCROLL (LENIS) — fast, responsive duration
-  if (typeof Lenis !== 'undefined') {
-    const lenis = new Lenis({
-      duration: 0.7,
-      easing: (t) => 1 - Math.pow(1 - t, 4),
-      smoothWheel: true,
-      smoothTouch: false,
-      wheelMultiplier: 1.0,
+  // 9. NATIVE SMOOTH SCROLL for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
     });
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  }
+  });
 
   // 10. PREMIUM CUSTOM CURSOR (physics trailing via requestAnimationFrame)
   const cursorDot = document.querySelector('.cursor-dot');
