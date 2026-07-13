@@ -663,17 +663,15 @@ h6 {
 
 /* Scroll Down Indicator styling */
 .hero-scroll-indicator {
-  position: absolute;
-  bottom: 2.2rem;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  opacity: 0.65;
+  margin: 3.5rem auto 0 auto;
+  opacity: 0.6;
   transition: opacity 0.3s ease;
   cursor: pointer;
+  width: fit-content;
   z-index: 10;
 }
 
@@ -684,21 +682,31 @@ h6 {
 .scroll-mouse {
   width: 20px;
   height: 32px;
-  border: 2px solid #ffffff;
+  border: 2px solid rgba(18, 24, 36, 0.7);
   border-radius: 10px;
   position: relative;
+  transition: border-color 0.3s ease;
+}
+
+.hero-scroll-indicator:hover .scroll-mouse {
+  border-color: rgba(18, 24, 36, 0.95);
 }
 
 .scroll-wheel {
   width: 4px;
   height: 8px;
-  background-color: #ffffff;
+  background-color: rgba(18, 24, 36, 0.7);
   border-radius: 2px;
   position: absolute;
   top: 6px;
   left: 50%;
   transform: translateX(-50%);
   animation: scroll-bob 1.6s infinite ease-in-out;
+  transition: background-color 0.3s ease;
+}
+
+.hero-scroll-indicator:hover .scroll-wheel {
+  background-color: rgba(18, 24, 36, 0.95);
 }
 
 .scroll-text {
@@ -707,7 +715,12 @@ h6 {
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: rgba(18, 24, 36, 0.7);
+  transition: color 0.3s ease;
+}
+
+.hero-scroll-indicator:hover .scroll-text {
+  color: rgba(18, 24, 36, 0.95);
 }
 
 @keyframes scroll-bob {
