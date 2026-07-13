@@ -991,10 +991,28 @@ h6 {
   transform: translateY(-5px);
 }
 
-.projects-accordion .project-slide:hover .project-slide-desc,
+.projects-accordion .project-slide:hover .project-slide-desc {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  display: block !important;
+}
+
 .projects-accordion .project-slide:hover .project-slide-link {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  color: var(--accent-gold) !important;
+  display: inline-flex !important;
+}
+
+.project-slide:hover .project-slide-tag {
+  color: var(--accent-gold) !important;
+  opacity: 1 !important;
+}
+
+.project-slide:hover .project-slide-title {
+  color: #ffffff !important;
+  opacity: 1 !important;
 }
 
 /* Tablet & Mobile Fallback styles */
