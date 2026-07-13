@@ -2452,7 +2452,7 @@ h6 {
 }
 
 .brand-logo-img {
-  height: 62px;
+  height: 90px;
   width: auto;
   object-fit: contain;
   background: transparent;
@@ -2463,7 +2463,7 @@ h6 {
 }
 
 .brand-logo-img[src*="book.png"] {
-  height: 80px;
+  height: 110px;
 }
 
 .brand-logo-img:hover {
