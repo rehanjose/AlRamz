@@ -1445,23 +1445,44 @@ h6 {
 
 .phone-input-group {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  border: 1px solid rgba(27, 42, 65, 0.14);
+  border-radius: 1rem;
+  background-color: #ffffff !important;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.phone-input-group:focus-within {
+  border-color: rgba(27, 42, 65, 0.55);
+  box-shadow: 0 0 0 4px rgba(27, 42, 65, 0.08);
 }
 
 .country-code-wrap {
-  width: 100px;
+  width: 105px;
   flex-shrink: 0;
+  border-right: 1px solid rgba(27, 42, 65, 0.14);
+}
+
+.country-code-wrap::after {
+  right: 0.65rem !important;
 }
 
 .country-code-select {
-  padding-right: 1.8rem;
-  font-size: 0.95rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  border: none !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  padding: 0.95rem 1.6rem 0.95rem 0.75rem !important;
+  box-shadow: none !important;
+  width: 100%;
 }
 
 .phone-field {
+  border: none !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  padding: 0.95rem 1rem !important;
+  box-shadow: none !important;
   flex-grow: 1;
 }
 
