@@ -605,7 +605,7 @@ h6 {
 .hero-banner-card {
   position: relative;
   width: 100%;
-  height: 680px;
+  height: 760px;
   border-radius: 3.2rem;
   background-image: url('homepg- project balamand.png');
   background-size: cover;
@@ -613,7 +613,7 @@ h6 {
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding: 4.5rem 5.5rem;
+  padding: 5.5rem 6.5rem;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
 }
 
@@ -630,28 +630,28 @@ h6 {
 .hero-banner-content {
   position: relative;
   z-index: 2;
-  max-width: 720px;
+  max-width: 800px;
   color: var(--bg-light);
   margin-top: 0;
 }
 
 .hero-banner-content .hero-title {
-  font-size: clamp(3.6rem, 7vw, 5.6rem);
+  font-size: clamp(4rem, 8vw, 6.2rem);
   line-height: 0.95;
   color: var(--bg-light);
   /* Creamy white heading for layout visual card */
-  margin-bottom: 2rem;
+  margin-bottom: 2.2rem;
   letter-spacing: -0.03em;
 }
 
 .hero-banner-content .hero-desc {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-weight: 300;
   color: rgba(245, 242, 235, 0.92);
   /* Slightly transparent creamy white for body copy */
-  line-height: 1.55;
+  line-height: 1.6;
   margin-bottom: 0;
-  max-width: 600px;
+  max-width: 640px;
 }
 
 .hero-banner-card .hero-banner-content {
