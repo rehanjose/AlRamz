@@ -3,6 +3,22 @@
    Core Interactions, Preloader, Active Menu States, Scroll Reveals, & Filtering
    ========================================================================== */
 
+// Immediately check if preloader has already run in this session to prevent visual flash
+(function() {
+  if (sessionStorage.getItem('preloaderHasRun')) {
+    const preloader = document.getElementById('preloader');
+    const appContainer = document.getElementById('app-container');
+    if (preloader) {
+      preloader.style.display = 'none';
+    }
+    if (appContainer) {
+      appContainer.classList.remove('hidden');
+      appContainer.style.opacity = '1';
+      appContainer.style.transition = 'none';
+    }
+  }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // 1. PRELOADER & APP INITIALIZATION
@@ -10,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const appContainer = document.getElementById('app-container');
   const minimumLoadTime = 2000; // Minimum exposure duration in ms
   const startTime = Date.now();
+  const preloaderHasRun = sessionStorage.getItem('preloaderHasRun');
 
   // Create Interactive Blueprint Canvas
   let canvas, ctx, animationFrameId;
@@ -23,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  if (preloader) {
+  if (preloader && !preloaderHasRun) {
     canvas = document.createElement('canvas');
     canvas.id = 'preloader-canvas';
     canvas.style.position = 'absolute';
@@ -330,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.addEventListener('load', () => {
-    if (preloader) {
+    if (preloader && !preloaderHasRun) {
       const elapsed = Date.now() - startTime;
       const remaining = Math.max(0, minimumLoadTime - elapsed);
 
@@ -357,14 +374,26 @@ document.addEventListener('DOMContentLoaded', () => {
           
           // Trigger reveal animations for items in the initial viewport
           triggerInitialReveals();
+
+          // Mark preloader as run in session storage
+          sessionStorage.setItem('preloaderHasRun', 'true');
         }, 800); // Wait for fade-out transition to complete
       }, remaining);
     } else {
-      // Preloader is not present on this page structure
+      // Preloader is not present or has already run in this session
+      if (preloader) {
+        preloader.style.display = 'none';
+      }
       if (appContainer) {
         appContainer.classList.remove('hidden');
+        appContainer.style.opacity = '1';
+        appContainer.style.transition = 'none';
       }
+      
+      // Start Global Blueprint Canvas Loop
       initGlobalBlueprintCanvas();
+      
+      // Trigger reveal animations for items in the initial viewport
       triggerInitialReveals();
     }
   });
