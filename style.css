@@ -852,6 +852,203 @@ h6 {
   gap: 3rem;
 }
 
+/* Projects Accordion (Desktop Expanding Slides) */
+.projects-accordion {
+  display: flex;
+  height: 520px;
+  width: 100%;
+  gap: 1.5rem;
+  overflow: hidden;
+  margin-top: 4rem;
+}
+
+.project-slide {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem;
+  text-decoration: none;
+  transition: flex 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 14, 20, 0.85) 0%,
+    rgba(10, 14, 20, 0.46) 55%,
+    rgba(10, 14, 20, 0.12) 100%
+  );
+  z-index: 1;
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+}
+
+.project-slide:hover::before {
+  opacity: 0.95;
+}
+
+/* Background mappings linking existing classes */
+.project-slide.project-cartier-card::after {
+  background-image: url('assets/project img/project-cartier.jpg');
+}
+.project-slide.project-villas-card::after {
+  background-image: url('assets/project img/project-villas.jpg');
+}
+.project-slide.project-prada-card::after {
+  background-image: url('assets/project img/project-prada.jpg');
+}
+.project-slide.project-jones-card::after {
+  background-image: url('assets/project img/project-jones.jpg');
+}
+
+.project-slide-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.project-slide-num {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: var(--accent-gold);
+  line-height: 1;
+  align-self: flex-start;
+  opacity: 0.8;
+  transition: transform 0.4s ease;
+}
+
+.project-slide-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.project-slide-tag {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+}
+
+.project-slide-title {
+  font-family: var(--font-sans);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.project-slide-desc {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0.5rem 0 0 0;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+  max-width: 90%;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-slide-link {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Hover accordion dynamics */
+.projects-accordion:hover .project-slide {
+  flex: 0.6;
+}
+
+.projects-accordion .project-slide:hover {
+  flex: 2.2;
+}
+
+.projects-accordion .project-slide:hover::after {
+  transform: scale(1.05);
+}
+
+.projects-accordion .project-slide:hover .project-slide-num {
+  transform: translateY(-5px);
+}
+
+.projects-accordion .project-slide:hover .project-slide-desc,
+.projects-accordion .project-slide:hover .project-slide-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tablet & Mobile Fallback styles */
+@media (max-width: 992px) {
+  .projects-accordion {
+    height: auto;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  
+  .project-slide {
+    height: 340px;
+    padding: 2rem;
+    border-radius: 1.25rem;
+  }
+  
+  .projects-accordion:hover .project-slide,
+  .projects-accordion .project-slide:hover {
+    flex: none;
+  }
+  
+  .project-slide-desc,
+  .project-slide-link {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .project-card {
   aspect-ratio: 4 / 3;
   display: flex;
