@@ -952,6 +952,9 @@ h6 {
   padding: 2.5rem;
   text-decoration: none;
   transition: flex 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Always visible — do not let reveal-item hide these */
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .project-slide::after {
@@ -1193,6 +1196,10 @@ h6 {
 
 .project-image-card:hover {
   transform: translateY(-8px);
+}
+/* Prevent hover transform from conflicting with accordion slides */
+.project-slide.project-image-card:hover {
+  transform: none;
 }
 
 .project-image-card.cream-variant:hover {

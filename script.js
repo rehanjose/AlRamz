@@ -754,15 +754,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Accordion slides
-    const slides = gsap.utils.toArray('.project-slide');
-    if (slides.length) {
-      gsap.from(slides, {
-        scrollTrigger: { trigger: slides[0], start: 'top 85%', once: true },
-        opacity: 0, y: 50, scale: 0.97,
-        duration: 0.7, stagger: 0.1, ease: 'power3.out'
-      });
-    }
+    // NOTE: Project accordion slides are handled by the reveal-item IntersectionObserver above
+    // to avoid opacity conflicts — we only add a subtle scale entrance via CSS
 
     // About image parallax
     const aboutImg = document.querySelector('.about-main-img');
