@@ -613,7 +613,9 @@ h6 {
   background-position: center;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 5.5rem 6.5rem;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
 }
@@ -658,7 +660,7 @@ h6 {
 .hero-banner-card .hero-banner-content {
   position: relative;
   z-index: 2;
-  transform: translateY(-110px);
+  transform: none;
 }
 
 /* Scroll Down Indicator styling */
@@ -666,11 +668,13 @@ h6 {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-top: 5rem;
+  position: relative;
+  z-index: 2;
   opacity: 0.6;
   transition: opacity 0.3s ease;
   cursor: pointer;
   width: fit-content;
+  margin-top: 0;
 }
 
 .hero-scroll-indicator:hover {
