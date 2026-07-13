@@ -664,14 +664,14 @@ h6 {
 /* Scroll Down Indicator styling */
 .hero-scroll-indicator {
   position: absolute;
-  bottom: -45px;
+  bottom: 2.2rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  opacity: 0.6;
+  opacity: 0.65;
   transition: opacity 0.3s ease;
   cursor: pointer;
   z-index: 10;
