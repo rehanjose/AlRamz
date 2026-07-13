@@ -806,22 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 12. LIGHTWEIGHT 3D TILT (only for card-like elements, disabled on mobile)
-  if (window.innerWidth > 992) {
-    document.querySelectorAll('.stat-card, .about-image-wrapper').forEach(el => {
-      el.addEventListener('mousemove', (e) => {
-        const r = el.getBoundingClientRect();
-        const x = (e.clientX - r.left - r.width / 2) / (r.width / 2);
-        const y = (e.clientY - r.top - r.height / 2) / (r.height / 2);
-        el.style.transform = `perspective(800px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) scale(1.02)`;
-        el.style.transition = 'transform 0.1s ease';
-      });
-      el.addEventListener('mouseleave', () => {
-        el.style.transform = '';
-        el.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
-      });
-    });
-  }
+  // 12. (Tilt effect removed — cards stay static for clean layout)
 
   // 13. MAGNETIC EFFECT (subtle, smooth)
   if (window.innerWidth > 992) {
