@@ -1432,12 +1432,12 @@ h6 {
 }
 
 .country-code-wrap {
-  width: 145px;
+  width: 100px;
   flex-shrink: 0;
 }
 
 .country-code-select {
-  padding-right: 2.2rem;
+  padding-right: 1.8rem;
   font-size: 0.95rem;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1446,6 +1446,10 @@ h6 {
 
 .phone-field {
   flex-grow: 1;
+}
+
+.form-group-full {
+  grid-column: span 2;
 }
 
 .btn-submit-form {
