@@ -480,11 +480,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Force reveal items in initial hero viewport on page load
   const triggerInitialReveals = () => {
-    const initialReveals = document.querySelectorAll('.hero .reveal-item, .services-section .reveal-item, .portfolio-section .reveal-item, .contact-section .reveal-item');
+    const initialReveals = document.querySelectorAll('.hero .reveal-item, .services-section .reveal-item, .portfolio-section .reveal-item, .contact-section .reveal-item, .selected-work .reveal-item');
     initialReveals.forEach(item => {
       item.classList.add('revealed');
     });
   };
+
+  // Global failsafe: force all reveal-items visible after 4 seconds
+  // in case IntersectionObserver, GSAP, or preloader logic fails
+  setTimeout(() => {
+    document.querySelectorAll('.reveal-item:not(.revealed)').forEach(item => {
+      item.classList.add('revealed');
+    });
+  }, 4000);
 
 
   // 5. PROJECTS PORTFOLIO FILTER GRID

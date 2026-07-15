@@ -2053,6 +2053,23 @@ h6 {
   transform: translateY(0);
 }
 
+/* Failsafe: auto-reveal selected-work items after 3s even if JS animations fail */
+@keyframes failsafe-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.selected-work .reveal-item {
+  animation: failsafe-reveal 0.8s ease forwards;
+  animation-delay: 3s;
+}
+
+.selected-work .reveal-item.revealed {
+  animation: none;
+}
+
 
 /* Home Services Grid Cards (Frame 003) */
 .home-services-grid {
