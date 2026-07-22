@@ -480,20 +480,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Force reveal items in initial hero viewport on page load
   const triggerInitialReveals = () => {
-    const initialReveals = document.querySelectorAll('.hero .reveal-item, .services-section .reveal-item, .portfolio-section .reveal-item, .contact-section .reveal-item, .selected-work .reveal-item');
+    const initialReveals = document.querySelectorAll('.hero .reveal-item, .services-section .reveal-item, .portfolio-section .reveal-item, .contact-section .reveal-item');
     initialReveals.forEach(item => {
       item.classList.add('revealed');
     });
   };
-
-  // Global failsafe: force all reveal-items visible after 4 seconds
-  // in case IntersectionObserver, GSAP, or preloader logic fails
-  setTimeout(() => {
-    document.querySelectorAll('.reveal-item:not(.revealed)').forEach(item => {
-      item.classList.add('revealed');
-    });
-  }, 4000);
-
 
   // 5. PROJECTS PORTFOLIO FILTER GRID
   const filterButtons = document.querySelectorAll('.filter-btn');
@@ -531,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // 6. CONTACT FORM SUBMISSION HANDLING
+  // 6. CONTACT FORM SUBMISSION HANDLING (WHATSAPP INTEGRATION)
   const contactForm = document.getElementById('contact-form');
   const formFeedback = document.getElementById('form-feedback');
 
@@ -539,35 +530,46 @@ document.addEventListener('DOMContentLoaded', () => {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      // Get values from the updated contact form
-      const firstName = document.getElementById('first-name').value.trim();
-      const lastName = document.getElementById('last-name').value.trim();
-      const email = document.getElementById('email-address').value.trim();
+      // Get values from the contact form
+      const firstName = document.getElementById('first-name') ? document.getElementById('first-name').value.trim() : '';
+      const lastName = document.getElementById('last-name') ? document.getElementById('last-name').value.trim() : '';
+      const email = document.getElementById('email-address') ? document.getElementById('email-address').value.trim() : '';
       const countryCode = document.getElementById('country-code') ? document.getElementById('country-code').value : '';
       const phoneNumber = document.getElementById('phone-number') ? document.getElementById('phone-number').value.trim() : '';
-      const serviceRequired = document.getElementById('service-required').value;
-      const projectDetails = document.getElementById('project-details').value.trim();
+      const serviceSelect = document.getElementById('service-required');
+      const serviceRequired = serviceSelect ? (serviceSelect.options[serviceSelect.selectedIndex]?.text || serviceSelect.value) : '';
+      const projectDetails = document.getElementById('project-details') ? document.getElementById('project-details').value.trim() : '';
 
-      // Provide visual feedback
+      const fullName = `${firstName} ${lastName}`.trim();
+      const fullPhone = phoneNumber ? `${countryCode} ${phoneNumber}`.trim() : 'Not provided';
+
+      // Format clean message for WhatsApp
+      const messageText = `Hello AL RAMZ MEP DESIGN,
+
+I would like to make an inquiry:
+
+📌 Name: ${fullName}
+📧 Email: ${email}
+📞 Phone: ${fullPhone}
+⚙️ Service Required: ${serviceRequired}
+📝 Project Details: ${projectDetails || 'N/A'}`;
+
+      const encodedMessage = encodeURIComponent(messageText);
+      const whatsappUrl = `https://wa.me/971503620281?text=${encodedMessage}`;
+
+      // Visual feedback
       const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn.textContent;
-      
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending Inquiry...';
-      formFeedback.className = 'form-feedback';
-      formFeedback.textContent = '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Redirecting to WhatsApp...';
+      }
+      formFeedback.className = 'form-feedback success';
+      formFeedback.innerHTML = `<strong>Thank you, ${fullName}!</strong> Redirecting to WhatsApp with your project details...`;
 
-      // Simulate network request
+      // Direct location redirect (bypasses browser popup blockers)
       setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
-
-        formFeedback.classList.add('success');
-        formFeedback.innerHTML = `<strong>Thank you, ${firstName} ${lastName}!</strong> Your ${serviceRequired ? serviceRequired.replace(/-/g, ' ') : 'project'} inquiry has been successfully received. We will contact you at <strong>${email}</strong> within 24 hours.`;
-
-        // Clear Form fields
-        contactForm.reset();
-      }, 1500);
+        window.location.href = whatsappUrl;
+      }, 300);
     });
   }
 
@@ -722,13 +724,19 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
     document.addEventListener('mouseover', (e) => {
-      if (e.target.closest('a, button, .btn, .project-slide, .service-row, .filter-btn, .logo, .menu-toggle, .stat-card')) {
+      if (e.target.closest('a, button, .btn, .project-slide, .service-row, .filter-btn, .logo, .menu-toggle, .image-modal-close')) {
         document.body.classList.add('cursor-hovering');
+      }
+      if (e.target.closest('.bg-dark, footer, .footer, .cta-banner, .hero-banner-card, .about-stat-card, .project-image-card, .image-modal')) {
+        document.body.classList.add('cursor-light');
       }
     });
     document.addEventListener('mouseout', (e) => {
-      if (e.target.closest('a, button, .btn, .project-slide, .service-row, .filter-btn, .logo, .menu-toggle, .stat-card')) {
+      if (e.target.closest('a, button, .btn, .project-slide, .service-row, .filter-btn, .logo, .menu-toggle, .image-modal-close')) {
         document.body.classList.remove('cursor-hovering');
+      }
+      if (e.target.closest('.bg-dark, footer, .footer, .cta-banner, .hero-banner-card, .about-stat-card, .project-image-card, .image-modal')) {
+        document.body.classList.remove('cursor-light');
       }
     });
   }
@@ -768,10 +776,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // About image parallax
     const aboutImg = document.querySelector('.about-main-img');
     if (aboutImg) {
-      gsap.to(aboutImg, {
-        scrollTrigger: { trigger: aboutImg, scrub: 1.5 },
-        y: -40, ease: 'none'
-      });
+      gsap.fromTo(aboutImg, 
+        { y: 35, scale: 1.15 },
+        {
+          scrollTrigger: {
+            trigger: aboutImg,
+            scrub: 1.5,
+            start: "top bottom",
+            end: "bottom top"
+          },
+          y: -35,
+          ease: 'none'
+        }
+      );
     }
 
     // Hero title character split animation
@@ -779,7 +796,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroTitle) {
       const words = heroTitle.innerHTML.split(/(<br\s*\/?>)/gi);
       heroTitle.innerHTML = words.map(w =>
-        w.match(/<br/i) ? w : `<span class="gsap-word" style="display:inline-block; overflow:hidden"><span class="gsap-word-inner" style="display:inline-block">${w}</span></span>`
+        w.match(/<br/i) ? w : `<span class="gsap-word" style="display:inline-block; overflow:hidden; vertical-align: bottom; padding-bottom: 0.15em; margin-bottom: -0.15em;"><span class="gsap-word-inner" style="display:inline-block; padding-bottom: 0.15em; margin-bottom: -0.15em;">${w}</span></span>`
       ).join('');
       gsap.from('.gsap-word-inner', {
         y: '100%', opacity: 0, duration: 0.9,
@@ -832,5 +849,95 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // 14. PROJECT CARD IMAGE PREVIEW (LIGHTBOX MODAL)
+  const initProjectImageModal = () => {
+    let modal = document.getElementById('image-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'image-modal';
+      modal.className = 'image-modal';
+      modal.setAttribute('aria-hidden', 'true');
+      modal.innerHTML = `
+        <div class="image-modal-overlay"></div>
+        <div class="image-modal-content">
+          <button class="image-modal-close" aria-label="Close preview">&times;</button>
+          <div class="image-modal-figure">
+            <img id="image-modal-img" src="" alt="Project Preview">
+            <div class="image-modal-caption">
+              <span id="image-modal-tag" class="image-modal-tag"></span>
+              <h3 id="image-modal-title" class="image-modal-title"></h3>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    const modalImg = modal.querySelector('#image-modal-img');
+    const modalTag = modal.querySelector('#image-modal-tag');
+    const modalTitle = modal.querySelector('#image-modal-title');
+    const closeBtn = modal.querySelector('.image-modal-close');
+    const overlay = modal.querySelector('.image-modal-overlay');
+
+    const openModal = (imgSrc, title, tag) => {
+      if (!imgSrc) return;
+      modalImg.src = imgSrc;
+      modalTag.textContent = tag || '';
+      modalTitle.textContent = title || '';
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('cursor-light');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('cursor-light');
+      document.body.style.overflow = '';
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    const getCardImageSrc = (card) => {
+      const afterStyle = window.getComputedStyle(card, '::after');
+      let bg = afterStyle ? afterStyle.backgroundImage : '';
+      if (!bg || bg === 'none') {
+        const style = window.getComputedStyle(card);
+        bg = style ? style.backgroundImage : '';
+      }
+      if (bg && bg !== 'none') {
+        const matches = bg.match(/url\(['"]?(.*?)['"]?\)/g);
+        if (matches && matches.length > 0) {
+          const lastMatch = matches[matches.length - 1];
+          return lastMatch.replace(/url\(['"]?/, '').replace(/['"]?\)/, '');
+        }
+      }
+      return '';
+    };
+
+    document.querySelectorAll('.project-card, .project-slide').forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        const imgSrc = getCardImageSrc(card);
+        const title = (card.querySelector('.project-meta-title') || card.querySelector('.project-slide-title') || card.querySelector('h3'))?.textContent.trim() || '';
+        const tag = (card.querySelector('.project-meta-category') || card.querySelector('.project-slide-tag') || card.querySelector('.project-tag'))?.textContent.trim() || '';
+
+        if (imgSrc) {
+          openModal(imgSrc, title, tag);
+        }
+      });
+    });
+  };
+
+  initProjectImageModal();
 });
+
 

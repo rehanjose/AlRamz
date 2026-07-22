@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alramzmep.com/sitemap.xml
